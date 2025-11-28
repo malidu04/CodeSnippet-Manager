@@ -6,6 +6,7 @@ export interface ICategory extends Document {
   color: string;
   user: mongoose.Types.ObjectId;
   snippetCount: number;
+  updateSnippetCount(): Promise<void>;
 }
 
 const categorySchema = new Schema<ICategory>(
@@ -43,7 +44,7 @@ const categorySchema = new Schema<ICategory>(
 );
 
 // Update snippet count when snippets are added/removed
-categorySchema.methods.updateSnippetCount = async function () {
+categorySchema.methods.updateSnippetCount = async function (): Promise<void> {
   const Snippet = mongoose.model('Snippet');
   const count = await Snippet.countDocuments({ category: this._id });
   this.snippetCount = count;

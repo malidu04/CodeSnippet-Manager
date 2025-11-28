@@ -4,7 +4,7 @@ export interface ISnippet extends Document {
   title: string;
   description: string;
   code: string;
-  language: string;
+  programmingLanguage: string;
   tags: string[];
   category: mongoose.Types.ObjectId;
   user: mongoose.Types.ObjectId;
@@ -31,7 +31,7 @@ const snippetSchema = new Schema<ISnippet>(
       type: String,
       required: [true, 'Code is required'],
     },
-    language: {
+    programmingLanguage: {
       type: String,
       required: [true, 'Language is required'],
       trim: true,
@@ -75,7 +75,7 @@ const snippetSchema = new Schema<ISnippet>(
 // Index for better search performance
 snippetSchema.index({ title: 'text', description: 'text', tags: 'text' });
 snippetSchema.index({ user: 1, createdAt: -1 });
-snippetSchema.index({ language: 1 });
+snippetSchema.index({ programmingLanguage: 1 });
 snippetSchema.index({ category: 1 });
 
 export const Snippet = mongoose.model<ISnippet>('Snippet', snippetSchema);
